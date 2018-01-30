@@ -17,6 +17,7 @@ def initialize(context):
     g.summit = {}  # 区间最高价
     set_option('use_real_price', True)
     log.set_level('order', 'error')
+    set_benchmark('000016.XSHG')
 
 
 def before_trading_start(context):
@@ -147,8 +148,7 @@ def do_select():
     # HY494 区域性银行   2007-07-20
     # HY004 可选消费指   1999-12-30
 
-    stockpool = get_industry_stocks('HY493') + get_industry_stocks('HY494') + get_index_stocks(
-        '000826.XSHG')
+    stockpool = get_index_stocks('000016.XSHG')
 
     q = query(
         valuation.code, valuation.pe_ratio,
@@ -169,7 +169,7 @@ def do_select():
 
     stock_to_choose = get_fundamentals(q)
     stockpool = list(stock_to_choose['code'])
-    log.info('选出股票只数: %d' % len(stockpool))
+  
 
     # 过滤停牌、退市、ST股票、涨停、跌停
     stockpool = filter_specials(stockpool)
